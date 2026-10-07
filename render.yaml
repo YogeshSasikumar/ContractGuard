@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: riskora-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements-lite.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    plan: free
+    envVars:
+      - key: DEPLOYMENT_MODE
+        value: lite
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: PYTHON_VERSION
+        value: 3.11.9

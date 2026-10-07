@@ -1,0 +1,26 @@
+# ContractGuardAI — Lite Requirements (for free-tier deployment)
+# Excludes heavy ML models (torch, transformers, sentence-transformers)
+# Uses keyword classification + Gemini API instead
+
+# Web Framework
+fastapi>=0.115.0
+uvicorn[standard]>=0.34.0
+python-multipart>=0.0.20
+
+# PDF Processing
+PyMuPDF>=1.25.0
+
+# Graph Analysis
+networkx>=3.0
+
+# Numerical (lightweight, needed for risk scoring)
+numpy>=1.26.0
+
+# LLM
+google-generativeai>=0.8.0
+
+# Utilities
+python-dotenv>=1.0.0
+pydantic>=2.10.0
+pydantic-settings>=2.7.0
+aiofiles>=24.1.0

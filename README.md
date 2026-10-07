@@ -1,4 +1,4 @@
-# Riskora
+# Contract Guard
 
 **CCRAG-based Legal Contract Risk Analysis System**
 
@@ -57,12 +57,7 @@ Both modes run the **full pipeline**: PDF upload → clause extraction → class
 
 ---
 
-## Quick Start
 
-```bash
-# Clone
-git clone https://github.com/JeevanSarasramSS/Riskora.git
-cd Riskora
 
 # Backend
 cd backend
@@ -173,8 +168,4 @@ Riskora/
 | `MODEL_PATH` | No | `./training/models/legal-bert-lora` | Path to fine-tuned model |
 | `UPLOAD_DIR` | No | `./uploads` | Directory for uploaded PDFs |
 
----
-
-## License
-
-MIT
+--

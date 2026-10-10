@@ -35,6 +35,26 @@ Riskora supports two deployment modes via a single `DEPLOYMENT_MODE` environment
 
 Both modes run the **full pipeline**: PDF upload → clause extraction → classification → risk scoring → AI explanation → case law matching.
 
+## Streamlit Deployment
+
+The repository includes an alternative Streamlit interface in `streamlit_app.py`. It calls the existing FastAPI service, so the backend must be deployed separately (for example, on Render using `render.yaml`). The existing React/Vercel frontend remains available.
+
+To deploy the Streamlit interface on [Streamlit Community Cloud](https://share.streamlit.io/):
+
+1. Push this repository to GitHub and create a new Streamlit app for it, selecting `streamlit_app.py` as the app file.
+2. In the app's **Settings → Secrets**, add the deployed backend URL:
+
+   ```toml
+   API_BASE_URL = "https://your-backend.onrender.com"
+   ```
+
+3. In the Render backend's environment settings, set `FRONTEND_URL` to the Streamlit app URL (for example, `https://your-app-name.streamlit.app`) so the backend allows browser requests from it.
+4. Redeploy the backend after changing `FRONTEND_URL`, then restart/redeploy the Streamlit app.
+
+The Streamlit app uses the root `requirements.txt`. Locally, install it with `pip install -r requirements.txt`, set `API_BASE_URL` if the backend is not at `http://localhost:8000`, then run `streamlit run streamlit_app.py`.
+
+Streamlit Community Cloud hosts the Python UI, not this FastAPI backend. Keep the backend running on Render or another Python web host. Set `GEMINI_API_KEY` on the backend if you want Gemini explanations.
+
 ---
 
 ## Live Deployment (Free Tier)
@@ -114,6 +134,8 @@ Riskora/
 │   ├── vite.config.js
 │   └── vercel.json           # SPA routing for Vercel
 ├── render.yaml               # Render blueprint
+├── streamlit_app.py          # Alternative Streamlit frontend
+├── requirements.txt         # Streamlit frontend dependencies
 ├── .gitignore
 └── README.md
 ```
@@ -167,5 +189,4 @@ Riskora/
 | `FRONTEND_URL` | No | `""` | Deployed frontend URL (for CORS) |
 | `MODEL_PATH` | No | `./training/models/legal-bert-lora` | Path to fine-tuned model |
 | `UPLOAD_DIR` | No | `./uploads` | Directory for uploaded PDFs |
-
---
+| `API_BASE_URL` | Streamlit | `http://localhost:8000` | FastAPI backend base URL used by the Streamlit frontend |
